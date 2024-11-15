@@ -255,12 +255,15 @@ def main():
 
         with tab1:
             if "json_example" in st.session_state:
-                st.json(json.loads(st.session_state.json_example))
+                # 格式化 JSON
+                formatted_json = json.dumps(
+                    json.loads(st.session_state.json_example),
+                    indent=4,
+                    ensure_ascii=False
+                )
 
-                # 添加复制按钮
-                if st.button("复制 JSON"):
-                    pyperclip.copy(st.session_state.json_example)
-                    st.success("已复制到剪贴板！")
+                # 使用 st.code() 显示 JSON，自带复制功能
+                st.code(formatted_json, language="json")
 
                 # 下载按钮
                 st.download_button(
